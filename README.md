@@ -4,7 +4,7 @@ A simple web application that simulates the Stargate dialer interface. Users can
 
 ## Features
 
-- Interactive glyph dialer interface (39 symbols)
+- Interactive glyph dialer interface (111 symbols)
 - Save dialed addresses to SQLite database
 - View dial history
 - Scrape known addresses from Stargate wiki (stargate.fandom.com)
@@ -50,7 +50,7 @@ A simple web application that simulates the Stargate dialer interface. Users can
 ## Database
 
 The application uses a SQLite database (`stargate.db`) to store:
-- `symbols` table: Contains the 39 Stargate symbols.
+- `symbols` table: Contains the 111 Stargate symbols.
 - `dialed_addresses` table: Stores each dialed address, its destination (if known), and a timestamp.
 
 ## API Endpoints

@@ -35,7 +35,7 @@ async function init() {
         
         renderAll();
         setupEventListeners();
-        addLog('SYSTEM READY. NEURAL INTERFACE ONLINE.');
+        addLog('SYSTEM READY.');
     } catch (err) {
         addLog('CRITICAL ERROR: ' + err.message);
     }
