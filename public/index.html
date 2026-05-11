@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stargate Command - Advanced Dialer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars-container"></div>
+    
+    <main class="app-container">
+        <header>
+            <div class="logo">
+                <h1>STARGATE COMMAND</h1>
+                <p class="subtitle">DIALER INTERFACE v2.0</p>
+            </div>
+            <div class="header-status">
+                <span class="status-indicator online"></span>
+                SYSTEM ONLINE
+            </div>
+        </header>
+
+        <section class="gate-interface">
+            <div class="gate-wrapper">
+                <div class="gate-ring" id="gateRing">
+                    <!-- Glyphs will be injected here -->
+                </div>
+                <div class="chevrons-container" id="chevronsContainer">
+                    <!-- 9 Chevrons -->
+                    <div class="chevron" id="chev-1"></div>
+                    <div class="chevron" id="chev-2"></div>
+                    <div class="chevron" id="chev-3"></div>
+                    <div class="chevron" id="chev-4"></div>
+                    <div class="chevron" id="chev-5"></div>
+                    <div class="chevron" id="chev-6"></div>
+                    <div class="chevron" id="chev-7"></div>
+                    <div class="chevron" id="chev-8"></div>
+                    <div class="chevron" id="chev-9"></div>
+                </div>
+                <div class="event-horizon" id="eventHorizon"></div>
+            </div>
+
+            <div class="console-panel">
+                <div class="terminal">
+                    <div class="terminal-header">DIAL SEQUENCE LOG</div>
+                    <div class="terminal-body" id="logOutput">
+                        > INITIALIZING SYSTEM...<br>
+                        > LOADING GLYPH DATA...<br>
+                        > READY FOR INPUT.
+                    </div>
+                </div>
+                
+                <div class="address-display">
+                    <div class="display-label">CURRENT ADDRESS</div>
+                    <div class="dialed-glyphs" id="dialedGlyphs">
+                        <!-- Dialed symbols will appear here -->
+                    </div>
+                </div>
+
+                <div class="destination-info" id="destinationInfo">
+                    <div class="display-label">DESTINATION</div>
+                    <div class="dest-name" id="destName">---</div>
+                    <div class="dest-desc" id="destDesc">Establish connection to retrieve data.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="control-center">
+            <div class="tabs">
+                <button class="tab-btn active" data-galaxy="Milky Way">MILKY WAY</button>
+                <button class="tab-btn" data-galaxy="Pegasus">PEGASUS</button>
+                <button class="tab-btn" data-galaxy="Destiny">DESTINY</button>
+            </div>
+            <div class="dhd-grid" id="dhdGrid">
+                <!-- DHD Buttons will be injected here -->
+            </div>
+            <div class="action-buttons">
+                <button id="dialBtn" class="btn btn-primary">DIAL</button>
+                <button id="resetBtn" class="btn btn-secondary">RESET</button>
+                <button id="toggleDbBtn" class="btn btn-secondary">ADDRESS BOOK</button>
+            </div>
+        </section>
+
+        <aside class="address-book hidden" id="addressBook">
+            <div class="book-header">
+                <h2>KNOWN DESTINATIONS</h2>
+                <button id="closeDbBtn">&times;</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Galaxy</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="addressList">
+                        <!-- Addresses injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
