@@ -92,7 +92,10 @@
         <aside class="address-book hidden" id="addressBook">
             <div class="book-header">
                 <h2>KNOWN DESTINATIONS</h2>
-                <button id="closeDbBtn">&times;</button>
+                <div class="header-actions">
+                    <button class="btn btn-primary btn-sm" id="addAddrBtn">+ NEW ADDRESS</button>
+                    <button id="closeDbBtn">&times;</button>
+                </div>
             </div>
             <div class="table-wrapper">
                 <table>
@@ -101,15 +104,51 @@
                             <th>Destination</th>
                             <th>Galaxy</th>
                             <th>Address</th>
-                            <th>Action</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="addressList">
-                        <!-- Addresses injected here -->
-                    </tbody>
+                    <tbody id="addressList"></tbody>
                 </table>
             </div>
         </aside>
+
+        <!-- Address Entry Form Modal -->
+        <div class="modal hidden" id="addressModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">NEW ADDRESS RECORD</h2>
+                <form id="addressForm">
+                    <input type="hidden" id="editId">
+                    <div class="form-group">
+                        <label>DESTINATION NAME</label>
+                        <input type="text" id="formDest" required placeholder="e.g., ABYDOS">
+                    </div>
+                    <div class="form-group">
+                        <label>GALAXY</label>
+                        <select id="formGalaxy">
+                            <option value="Milky Way">Milky Way</option>
+                            <option value="Pegasus">Pegasus</option>
+                            <option value="Destiny">Destiny</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>COORDINATES (ID-ID-ID...)</label>
+                        <input type="text" id="formAddr" required placeholder="e.g., 26-6-14-31-13-2">
+                    </div>
+                    <div class="form-group">
+                        <label>REFERENCE (EPISODE)</label>
+                        <input type="text" id="formRef" placeholder="e.g., SG1: S01E01">
+                    </div>
+                    <div class="form-group">
+                        <label>DESCRIPTION</label>
+                        <textarea id="formDesc" placeholder="Planetary details..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">SAVE RECORD</button>
+                        <button type="button" class="btn btn-secondary" id="cancelForm">CANCEL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 
     <script src="app.js"></script>

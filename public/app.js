@@ -104,7 +104,11 @@ function renderAddressBook() {
             </td>
             <td><span class="badge">${addr.galaxy}</span></td>
             <td><code>${addr.address}</code></td>
-            <td><button class="btn btn-secondary btn-sm" onclick="autoDial('${addr.address}')">LOAD</button></td>
+            <td class="action-btns-cell">
+                <button class="btn btn-secondary btn-sm" title="LOAD COORDINATES" onclick="autoDial('${addr.address}')">⏵</button>
+                <button class="btn btn-secondary btn-sm" title="EDIT RECORD" onclick="openAddressModal(${JSON.stringify(addr).replace(/"/g, '&quot;')})">✎</button>
+                <button class="btn btn-danger btn-sm" title="DELETE RECORD" onclick="deleteAddress(${addr.id})">🗑</button>
+            </td>
         </tr>
     `).join('');
 }
@@ -126,6 +130,87 @@ function setupEventListeners() {
     document.getElementById('resetBtn').onclick = resetDialer;
     document.getElementById('toggleDbBtn').onclick = () => UI.addressBook.classList.remove('hidden');
     document.getElementById('closeDbBtn').onclick = () => UI.addressBook.classList.add('hidden');
+    
+    // CRUD Event Listeners
+    document.getElementById('addAddrBtn').onclick = () => openAddressModal();
+    document.getElementById('cancelForm').onclick = closeAddressModal;
+    document.getElementById('addressForm').onsubmit = handleAddressSubmit;
+}
+
+function openAddressModal(addr = null) {
+    const modal = document.getElementById('addressModal');
+    const form = document.getElementById('addressForm');
+    const title = document.getElementById('modalTitle');
+    
+    modal.classList.remove('hidden');
+    form.reset();
+    
+    if (addr) {
+        title.innerText = 'UPDATE ADDRESS RECORD';
+        document.getElementById('editId').value = addr.id;
+        document.getElementById('formDest').value = addr.destination;
+        document.getElementById('formGalaxy').value = addr.galaxy;
+        document.getElementById('formAddr').value = addr.address;
+        document.getElementById('formRef').value = addr.episode;
+        document.getElementById('formDesc').value = addr.description;
+    } else {
+        title.innerText = 'NEW ADDRESS RECORD';
+        document.getElementById('editId').value = '';
+    }
+}
+
+function closeAddressModal() {
+    document.getElementById('addressModal').classList.add('hidden');
+}
+
+async function handleAddressSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById('editId').value;
+    const data = {
+        destination: document.getElementById('formDest').value,
+        galaxy: document.getElementById('formGalaxy').value,
+        address: document.getElementById('formAddr').value,
+        episode: document.getElementById('formRef').value,
+        description: document.getElementById('formDesc').value
+    };
+
+    const url = id ? `/api/addresses/${id}` : '/api/addresses';
+    const method = id ? 'PUT' : 'POST';
+
+    try {
+        const res = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+            addLog(`DATABASE UPDATED: ${data.destination} SAVED.`);
+            // Refresh data
+            const freshRes = await fetch('/api/addresses');
+            state.addresses = await freshRes.json();
+            renderAddressBook();
+            closeAddressModal();
+        }
+    } catch (err) {
+        addLog('DATABASE ERROR: ' + err.message);
+    }
+}
+
+async function deleteAddress(id) {
+    if (!confirm('PERMANENTLY DELETE THIS RECORD FROM SGC DATABASE?')) return;
+    
+    try {
+        const res = await fetch(`/api/addresses/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+            addLog('RECORD DELETED.');
+            state.addresses = state.addresses.filter(a => a.id !== id);
+            renderAddressBook();
+        }
+    } catch (err) {
+        addLog('DATABASE ERROR: ' + err.message);
+    }
 }
 
 async function dialSymbol(glyph) {

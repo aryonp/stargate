@@ -37,6 +37,36 @@ app.post('/api/check-address', (req, res) => {
     });
 });
 
+// CRUD for addresses
+app.post('/api/addresses', (req, res) => {
+    const { destination, description, episode, address, galaxy } = req.body;
+    db.run("INSERT INTO addresses (destination, description, episode, address, galaxy) VALUES (?, ?, ?, ?, ?)",
+        [destination, description, episode, address, galaxy],
+        function(err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ success: true, id: this.lastID });
+        }
+    );
+});
+
+app.put('/api/addresses/:id', (req, res) => {
+    const { destination, description, episode, address, galaxy } = req.body;
+    db.run("UPDATE addresses SET destination = ?, description = ?, episode = ?, address = ?, galaxy = ? WHERE id = ?",
+        [destination, description, episode, address, galaxy, req.params.id],
+        (err) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ success: true });
+        }
+    );
+});
+
+app.delete('/api/addresses/:id', (req, res) => {
+    db.run("DELETE FROM addresses WHERE id = ?", [req.params.id], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ success: true });
+    });
+});
+
 app.listen(port, () => {
     console.log(`Stargate Dialer server running at http://localhost:${port}`);
 });

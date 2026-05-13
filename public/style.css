@@ -225,7 +225,7 @@ h1 {
     font-family: monospace;
     font-size: 0.85rem;
     color: #4ade80;
-    height: 150px;
+    height: 250px;
     overflow-y: auto;
 }
 
@@ -502,8 +502,90 @@ code {
 }
 
 .btn-sm {
-    padding: 0.5rem 1rem;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background: #0f172a;
+    border: 2px solid var(--accent);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    width: 500px;
+    box-shadow: 0 0 50px var(--accent);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
     font-size: 0.7rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    height: 80px;
+    resize: none;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-danger {
+    background: rgba(255, 71, 87, 0.2);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.btn-danger:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+.action-btns-cell {
+    display: flex;
+    gap: 0.5rem;
 }
 
 /* Responsive */
